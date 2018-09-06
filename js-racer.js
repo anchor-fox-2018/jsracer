@@ -2,6 +2,7 @@
 
 const numOfPlayer = +process.argv[2];
 const panjangLintasan = +process.argv[3];
+let pemenang = ''
 
 let nameOfPlayer = 'abcdefghijklmnopqrstuvwxyz';
 let playerDetails = [];
@@ -27,12 +28,8 @@ function sleep (milliseconds) {
 }
 
 function printBoard () {
-  let board = [];
-  if (finished() === false) {
-    for (let i = 0; i < numOfPlayer; i++) {
-      advance(i);
-      board.push(printLine(playerDetails[i]['name'], playerDetails[i]['position']));
-    }
+  for (let i = 0; i < numOfPlayer; i++) {
+    printLine(playerDetails[i]['name'], playerDetails[i]['position']);
   }
 }
 
@@ -57,18 +54,19 @@ function advance (lineNum) {
     }
 }
 
+
 function finished () {
   for (var i = 0; i < numOfPlayer; i++) {
     if (playerDetails[i]['position'] >= panjangLintasan) {
-      winner(playerDetails[i]['name']);
+      pemenang = playerDetails[i]['name'];
       return true;
     }
   }
   return false;
 }
 
-function winner (win) {
-  console.log('Player ' + win + ' is the winner!');
+function winner () {
+  console.log('Player ' + pemenang + ' is the winner!');
 }
 
 function clearScreen () {
@@ -79,12 +77,20 @@ function clearScreen () {
 
 if (numOfPlayer < 2) {
   console.log('Minimal player = 2');
-} else if (panjangLintasan > 15 || panjangLintasan < 0) {
-  console.log('Maximum Panjang Lintasan = 15');
+} else if (panjangLintasan < 15) {
+  console.log('Minimum Panjang Lintasan = 15');
 } else {
   while(finished() === false) {
-    sleep(800);
-    clearScreen();
-    printBoard();
+    for (var i = 0; i < numOfPlayer; i++) {
+      advance(i);
+      clearScreen();
+      printBoard();
+      if (finished() === true) {
+        break;
+      } else {
+        sleep(800);
+      }
+    }
   }
+  winner()
 }
