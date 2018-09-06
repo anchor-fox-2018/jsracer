@@ -22,14 +22,14 @@ console.log('the duration: ' + sleep(4000))
 function printBoard () {
   let col = process.argv[2];
   let row = process.argv[3];
-  let fullRow = '';
+  let fullRow = [];
 
   for (let i = 0; i < row; i++) {
-    fullRow += '| ';
+    fullRow.push('| ');
   }
 
   for (let c = 0; c < col; c++) {
-    console.log(fullRow)
+    console.log(fullRow.join(''))
   }
 }
 printBoard()
