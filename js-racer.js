@@ -16,21 +16,24 @@ function sleep (milliseconds) {
   }
 
 }
-console.log('the duration: ' + sleep(4000))
+console.log('the duration: ' + sleep(0))
 
 //empty board
 function printBoard () {
   let col = process.argv[2];
   let row = process.argv[3];
+  let singleRow = [];
   let fullRow = [];
 
   for (let i = 0; i < row; i++) {
-    fullRow.push('| ');
+    singleRow.push('| ');
   }
 
   for (let c = 0; c < col; c++) {
-    console.log(fullRow.join(''))
+    fullRow.push(singleRow.join(''));
   }
+
+  console.log(fullRow.join(`\n`));
 }
 printBoard()
 
